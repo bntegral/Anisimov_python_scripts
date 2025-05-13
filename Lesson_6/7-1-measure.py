@@ -81,7 +81,7 @@ try:
         a = adc()
         v = 3.3 * a / 255
         print(a, 'Разряжаем, предполагаемое напряжение:', v)
-        list_up.append(v)
+        list_up.append(a)
         GPIO.output(led, binary(a))
     
 finally:
@@ -89,7 +89,7 @@ finally:
     with open('/home/b04-406/Desktop/Scripts/data.txt', 'w') as f:
         f.writelines([str(e) + '\n' for e in list_up + list_down])
     with open('/home/b04-406/Desktop/Scripts/settings.txt', 'w') as f:
-        f.write('Частота: ' + str(len(list_up + list_down)/timefinish) + '\n' + 'Шаг дискретизации: ' + str(3.3 / 255))
+        f.write(str(len(list_up + list_down)/timefinish) + '\n' + str(3.3 / 255))
     print(timefinish, 0.005, timefinish/len(list_up + list_down), 3.3 / 255)
     print('Общая продолжительность эксперимента {}, период одного измерения {}, средняя частота дискретизации проведённых измерений {}, шаг квантования АЦП {}'.format(timefinish, timefinish/len(list_up + list_down), len(list_up + list_down)/timefinish, 3.3 / 255))
     x = [timefinish/len(list_up + list_down) * i for i in range(len(list_up + list_down))]
